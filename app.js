@@ -20,14 +20,8 @@ export function render(spec) {
       keys: state.keys.slice().sort(), ledger: state.ledger, applied: state.applied.length
     });
   };
-  const size = spec.block_size;
   const keys = closed.state.keys.slice().sort();
-  const blocks = [];
-  for (let start = 0; start < keys.length; start += size) {
-    const rows = keys.slice(start, start + size);
-    const prefix = blockPrefix(rows);
-    blocks.push([prefix, rows.map(function (row) { return row.slice(prefix.length); })]);
-  }
+  const blocks = closed.blocks;
   return { blocks: blocks, block_count: blocks.length, key_count: keys.length,
            collected_first: first.collected, collected_wide: wide.collected,
            pair_differs: first.collected !== wide.collected,
